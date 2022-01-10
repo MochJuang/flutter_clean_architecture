@@ -1,17 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:new_flutter/domain/raja_ongkir/province/province_model.dart';
 import 'package:new_flutter/domain/raja_ongkir/raja_ongkir_fail.dart';
 import 'package:new_flutter/utils/constants.dart';
 
 abstract class IRajaOngkir{
-  Future<Either<RajaOngkirFail, List<ProvinceModel>>> getCityData();
+  Future<Either<RajaOngkirFail, List<ProvinceModel>>> getProvinceData();
 }
 
+@LazySingleton(as : IRajaOngkir)
 class RajaOngkirRepository extends IRajaOngkir{
   final _dio = Dio();
   @override
-  Future<Either<RajaOngkirFail, List<ProvinceModel>>> getCityData() async {
+  Future<Either<RajaOngkirFail, List<ProvinceModel>>> getProvinceData() async {
     Response response;
     try {      
       response = await _dio.get(Constants.base_url + 'province');
@@ -31,3 +33,8 @@ class RajaOngkirRepository extends IRajaOngkir{
   }
   
 }
+  
+  
+  
+  
+  
